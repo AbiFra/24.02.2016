@@ -1,0 +1,18 @@
+###ejercicio en clase
+### bajar la base de datos "variables del cuestionario de ocupacion y empleo I " del portal
+### del inegi del segundo trimestre del 2015
+install.packages("foreing")
+require(foreign)
+
+sdmt215<- read.dbf ("C:\\Users\\SALA-C27\\Downloads\\COE1T215.dbf")
+sdmt215$ENT1<- as.numeric(as.character(sdmt215$ENT))
+Tabl1 <-  subset(sdmt215,(ENT1==9))
+attach(Tabl1)
+Tabl1$ENT<-ordered(Tabl1$ENT1==9, labels ="Ciudad de México")
+Tabl1$P3L<-ordered(Tabl1$P3L ,  levels=c("01", "02", "03", "04", "05","06","07", "08", "09", "10", "11", "99" ), labels=c("1 persona", " 2 a 5 personas", "6 a 10 personas", "11 a 15 personas", "16 a 20 personas", "21 a 30 personas", "31 a 50 personas", "51 a 100 personas", "101 a 250 personas", "251 a 500 personas", "501 y más personas ", "no sabe "))
+Tabl1$P5<-ordered(Tabl1$P5, levels=c("1", "2", "3", "9"), labels=c("Sí", " No trabajó la semana pasada", "No se encontró en esa situación", " No sabe"))
+Tabl1$P2E<-ordered(Tabl1$P2E , levels=c("1", "2", "3", "4", "5","6", "9"), labels=c("una persona temporalmente ausente de su actividad u oficio?", "pensionado o jubilado de su empleo?", "estudiante?", "una persona que se dedica a los quehaceres de su", "una persona con alguna limitación física o mental que le impide trabajar por el resto de su vida?", "Otra condición", " no sabe"))
+table(Tabl1$P5,Tabl1$P2E )
+
+table (ENT1)
+
